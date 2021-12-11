@@ -8,9 +8,10 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-int BUFFER_SIZE = 0;
 
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *ptr, int x, size_t n);
-
+char	*ft_strdup(char *src);
+int	    ft_strlen(char *str);
+char	*ft_strjoin(char *s1, char *s2);
 #endif
