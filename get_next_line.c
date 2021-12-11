@@ -104,7 +104,7 @@ int main(int ac, char **av)
     int i;
     
     i = 0;
-    fd = open("bible.txt", O_RDONLY);
+    fd = open("gnlTester/files/41_with_nl", O_RDONLY);
    while ((str = get_next_line(fd)) != NULL)
    // while (i < 11)
     {
