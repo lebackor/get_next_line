@@ -52,26 +52,17 @@ char *get_next_line(int fd)
     i = 1;
     if (!str)
         str = malloc(sizeof(str) * BUFFER_SIZE + 1);
-       // str = ft_calloc((BUFFER_SIZE + 1), sizeof(*str));
+      //  str = ft_calloc((BUFFER_SIZE + 1), sizeof(*str));
     buffer = malloc(sizeof(buffer) * BUFFER_SIZE + 1);
     //buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(*buffer));
     new_line = ft_strdup(str);
-    //printf("NL=%s\n", new_line);
     while (ft_search_n(new_line) && i > 0)
     {
         i = read(fd, buffer, BUFFER_SIZE);
         if (i < 0)
             return (NULL);
-     //   printf("BUFFER=%s\n", buffer);
         if (i == 0 && ft_search_n(str) == 1)
         {
-         //   printf("LAST=%s\n", new_line);
-            /*if (new_line && *str == '\0')
-            {       
-                
-                return (new_line);
-            }
-            */
             if (*str == '\0')
                 return (NULL);
             str = ft_strcpy(str, &str[ft_reach_0(str)]);
@@ -79,7 +70,6 @@ char *get_next_line(int fd)
         }
         buffer[i] = '\0';
         new_line = ft_strjoin(new_line, buffer);
-        //printf("x=%s\n", new_line);
         if (new_line && *str == '\0')
             return (new_line);
     }
@@ -94,7 +84,7 @@ char *get_next_line(int fd)
     free(buffer);
     return (new_line);
 }
-
+/*
 int main(int ac, char **av)
 {
     (void) ac;
@@ -114,3 +104,4 @@ int main(int ac, char **av)
     }
     //printf("i==%d\n", i);
 }
+*/
