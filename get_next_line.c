@@ -1,4 +1,9 @@
-
+/*
+Petite note = le gnl fait des tour dans le vide et n arrive pas a afficher une ligne sans \n, soit un fichier avec un \0 only.
+on a une division dans new_line dans 43 no nl, nl = tt la string ensuite on lui retire le premier zero et ensuite il est egale a 2, on
+ a 3 tour dans le vide, regler les tours inutiles et faire en sorte de return directement le buffer, ou la nl qui est justement sans nl.
+maj = fix, leaks only
+*/
 #include "get_next_line.h"
 #include <stdio.h>
 
@@ -55,38 +60,33 @@ char *get_next_line(int fd)
     {
         str = malloc(sizeof(str) * BUFFER_SIZE + 1);
         *str = '\0';
-      //  str = ft_calloc((BUFFER_SIZE + 1), sizeof(*str));
     }
     buffer = malloc(sizeof(buffer) * BUFFER_SIZE + 1);
-    //buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(*buffer));
-    if (ft_strlen(str) > 0)
-        new_line = ft_strdup(str);
+    //if (ft_strlen(str) > 0)
+    new_line = ft_strdup(str);
+    //printf("%s", new_line);
     while (ft_search_n(new_line) && i > 0)
     {
+       // printf("%s\n", new_line); 
         i = read(fd, buffer, BUFFER_SIZE);
         if (i < 0)
             return (NULL);
+       // printf("%s\n", buffer);
         if (i == 0 && ft_search_n(str) == 1)
         {
            // printf("%s", new_line);
-            //if (*str == '\0')
-             //   return (NULL);
-           /// str = 0;
-            str = ft_strcpy(str, &str[ft_reach_0(str)]);
-            //free(buffer);
+            //printf("%s", str);
+            if (*str == '\0' && *new_line == '\0')
+                return (NULL);
+       //     printf("%s", buffer);
+           // str = 0;
+            *str = '\0';
+            free(buffer);
             return (new_line);
         }
         buffer[i] = '\0';
         //printf("q");
         new_line = ft_strjoin(new_line, buffer);
-      /*  if (new_line && *str == '\0')
-        {
-          //  free(str);
-            printf("ee");
-            free(buffer);
-            return (new_line);
-        }*/
-       // return (new_line);
     }
     k = 0;
     while (new_line[k] && new_line[k] != '\n')
@@ -95,7 +95,7 @@ char *get_next_line(int fd)
     {
         str = ft_strcpy(str, &new_line[++k]);
     }
-    new_line[k--] = '\0';
+    new_line[k] = '\0';
     free(buffer);
     return (new_line);
 }

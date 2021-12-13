@@ -84,6 +84,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		a++;
 		i++;
 	}
-	free(s1);
+	//free(s1);
 	return (str);
 }
