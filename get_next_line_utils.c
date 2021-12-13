@@ -30,6 +30,8 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (i);
 	while (str[i] != '\0')
 		i++;
 	return (i);
@@ -41,10 +43,13 @@ char	*ft_strdup(char *src)
 	int		i;
 
 	i = 0;
-	dest = malloc(sizeof(char) * ft_strlen(src));
+	if (!src)
+		return (NULL);
+	dest = malloc(sizeof(char) * ft_strlen(src) + 1);
+	//dest = ft_calloc((ft_strlen(src)) + 1, sizeof(dest));
 	if (!(dest))
 		return (NULL);
-	while (src[i] != '\0')
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
@@ -58,8 +63,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	char	*str;
 
-	if (!s1 || !s2)
+	if (!s2)
 		return (NULL);
+	if (!s1)
+		return (s2);
 	i = 0;
 	a = ft_strlen(s1);
 	str = ft_calloc(a + ft_strlen(s2) + 1, sizeof(char));
@@ -77,5 +84,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		a++;
 		i++;
 	}
+	free(s1);
 	return (str);
 }

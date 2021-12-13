@@ -50,12 +50,17 @@ char *get_next_line(int fd)
     char *new_line;
 
     i = 1;
+    new_line = 0;
     if (!str)
+    {
         str = malloc(sizeof(str) * BUFFER_SIZE + 1);
+        *str = '\0';
       //  str = ft_calloc((BUFFER_SIZE + 1), sizeof(*str));
+    }
     buffer = malloc(sizeof(buffer) * BUFFER_SIZE + 1);
     //buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(*buffer));
-    new_line = ft_strdup(str);
+    if (ft_strlen(str) > 0)
+        new_line = ft_strdup(str);
     while (ft_search_n(new_line) && i > 0)
     {
         i = read(fd, buffer, BUFFER_SIZE);
@@ -63,15 +68,25 @@ char *get_next_line(int fd)
             return (NULL);
         if (i == 0 && ft_search_n(str) == 1)
         {
-            if (*str == '\0')
-                return (NULL);
+           // printf("%s", new_line);
+            //if (*str == '\0')
+             //   return (NULL);
+           /// str = 0;
             str = ft_strcpy(str, &str[ft_reach_0(str)]);
+            //free(buffer);
             return (new_line);
         }
         buffer[i] = '\0';
+        //printf("q");
         new_line = ft_strjoin(new_line, buffer);
-        if (new_line && *str == '\0')
+      /*  if (new_line && *str == '\0')
+        {
+          //  free(str);
+            printf("ee");
+            free(buffer);
             return (new_line);
+        }*/
+       // return (new_line);
     }
     k = 0;
     while (new_line[k] && new_line[k] != '\n')
