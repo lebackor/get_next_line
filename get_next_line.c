@@ -23,15 +23,6 @@ int ft_search_n(char *new_line)
     return (1);
 }
 
-int ft_reach_0(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
-}
 char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
@@ -67,11 +58,19 @@ char *get_next_line(int fd)
     {
         i = read(fd, buffer, BUFFER_SIZE);
         if (i < 0)
+        {
+            free(new_line);
+            free(buffer);
             return (NULL);
+        }
         if (i == 0 && ft_search_n(str) == 1)
         {
             if (*str == '\0' && *new_line == '\0')
+            {
+                free(buffer);
+                free(new_line);
                 return (NULL);
+            }
             *str = '\0';
             free(buffer);
             return (new_line);

@@ -31,7 +31,7 @@ int	ft_strlen(char *str)
 
 	i = 0;
 	if (!str)
-		return (i);
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
@@ -45,7 +45,7 @@ char	*ft_strdup(char *src)
 	i = 0;
 	if (!src)
 		return (NULL);
-	dest = malloc(sizeof(char) * ft_strlen(src) + 1);
+	dest = malloc(sizeof(dest) * ft_strlen(src) + 1);
 	//dest = ft_calloc((ft_strlen(src)) + 1, sizeof(dest));
 	if (!(dest))
 		return (NULL);
@@ -84,6 +84,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		a++;
 		i++;
 	}
-	//free(s1);
+	free(s1);
 	return (str);
 }
