@@ -37,6 +37,13 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
+char *ft_free_char(char *str, char *buffer, char *new_line)
+{
+    free(str);
+    free(buffer);
+    free(new_line);
+    return (NULL);
+}
 char *get_next_line(int fd)
 {
     int i;
@@ -48,29 +55,18 @@ char *get_next_line(int fd)
     i = 1;
     new_line = 0;
     if (!str)
-    {
-        str = malloc(sizeof(str) * BUFFER_SIZE + 1);
-        *str = '\0';
-    }
+        str = malloc(sizeof(str) * BUFFER_SIZE + 1); // *str = '\0'; si soucis//
     buffer = malloc(sizeof(buffer) * BUFFER_SIZE + 1);
     new_line = ft_strdup(str);
     while (ft_search_n(new_line) && i > 0)
     {
         i = read(fd, buffer, BUFFER_SIZE);
         if (i < 0)
-        {
-            free(new_line);
-            free(buffer);
-            return (NULL);
-        }
+            return (ft_free_char(str, buffer, new_line));
         if (i == 0 && ft_search_n(str) == 1)
         {
             if (*str == '\0' && *new_line == '\0')
-            {
-                free(buffer);
-                free(new_line);
-                return (NULL);
-            }
+                return (ft_free_char(str, buffer, new_line));
             *str = '\0';
             free(buffer);
             return (new_line);
