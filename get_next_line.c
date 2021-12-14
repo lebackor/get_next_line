@@ -62,39 +62,28 @@ char *get_next_line(int fd)
         *str = '\0';
     }
     buffer = malloc(sizeof(buffer) * BUFFER_SIZE + 1);
-    //if (ft_strlen(str) > 0)
     new_line = ft_strdup(str);
-    //printf("%s", new_line);
     while (ft_search_n(new_line) && i > 0)
     {
-       // printf("%s\n", new_line); 
         i = read(fd, buffer, BUFFER_SIZE);
         if (i < 0)
             return (NULL);
-       // printf("%s\n", buffer);
         if (i == 0 && ft_search_n(str) == 1)
         {
-           // printf("%s", new_line);
-            //printf("%s", str);
             if (*str == '\0' && *new_line == '\0')
                 return (NULL);
-       //     printf("%s", buffer);
-           // str = 0;
             *str = '\0';
             free(buffer);
             return (new_line);
         }
         buffer[i] = '\0';
-        //printf("q");
         new_line = ft_strjoin(new_line, buffer);
     }
     k = 0;
     while (new_line[k] && new_line[k] != '\n')
         k++;
     if (new_line[k] == '\n')
-    {
         str = ft_strcpy(str, &new_line[++k]);
-    }
     new_line[k] = '\0';
     free(buffer);
     return (new_line);
