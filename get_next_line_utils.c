@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lebackor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/14 18:53:15 by lebackor          #+#    #+#             */
+/*   Updated: 2021/12/14 18:54:01 by lebackor         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
 
@@ -46,7 +57,6 @@ char	*ft_strdup(char *src)
 	if (!src)
 		return (NULL);
 	dest = malloc(sizeof(dest) * ft_strlen(src) + 1);
-	//dest = ft_calloc((ft_strlen(src)) + 1, sizeof(dest));
 	if (!(dest))
 		return (NULL);
 	while (src[i])
@@ -57,6 +67,7 @@ char	*ft_strdup(char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		a;
@@ -67,16 +78,13 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	if (!s1)
 		return (s2);
-	i = 0;
+	i = -1;
 	a = ft_strlen(s1);
 	str = ft_calloc(a + ft_strlen(s2) + 1, sizeof(char));
 	if (!str)
 		return (NULL);
-	while (s1[i])
-	{
+	while (s1[++i])
 		str[i] = s1[i];
-		i++;
-	}
 	i = 0;
 	while (s2[i])
 	{
