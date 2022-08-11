@@ -20,6 +20,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define BUFFER_SIZE 1
+
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *ptr, int x, size_t n);
 char	*ft_strdup(char *src);
